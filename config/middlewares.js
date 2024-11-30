@@ -1,7 +1,25 @@
 module.exports = [
   'strapi::logger',
   'strapi::errors',
-  'strapi::security',
+  // 'strapi::security',
+  // ...
+  {
+    name: 'strapi::security',
+    config: {
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          'connect-src': ["'self'", 'https:'],
+          // 'img-src': ["'self'", 'data:', 'blob:', 'market-assets.strapi.io', 'yourBucketName.s3.yourRegion.amazonaws.com'],
+          'img-src': ["'self'", 'data:', 'blob:', 'market-assets.strapi.io', env('AWS_BUCKET') || '.s3.' || env('AWS_REGION') || 'amazonaws.com'],
+          //'media-src': ["'self'", 'data:', 'blob:', 'market-assets.strapi.io', 'yourBucketName.s3.yourRegion.amazonaws.com'],
+          'media-src': ["'self'", 'data:', 'blob:', 'market-assets.strapi.io', env('AWS_BUCKET') || '.s3.' || env('AWS_REGION') || 'amazonaws.com'],
+          upgradeInsecureRequests: null,
+        },
+      },
+    },
+  },
+  // ...
   'strapi::cors',
   'strapi::poweredBy',
   'strapi::query',
@@ -9,4 +27,7 @@ module.exports = [
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
-];
+]
+function env(variable) {
+  return process.env[variable] || ''
+}
