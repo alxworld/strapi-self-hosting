@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_layout_mission_sections",
+  "info": {
+    "displayName": "missionSection",
+    "icon": "plane"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": "Our Mission",
+      "required": true
+    },
+    "content": {
+      "type": "text"
+    },
+    "showLogo": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}
